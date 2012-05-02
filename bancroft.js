@@ -81,7 +81,7 @@ var Bancroft =
                   self.emit('location', self.location);
                 }
 
-              } else if (data.class === 'SKY') {
+            } else if (data.class === 'SKY' && data.satellites != undefined) {
                 for ( var index = 0; index < data.satellites.length; index++) {
                   var satellite = data.satellites[index];
                   if (self.satellites[satellite.PRN] !== undefined) {
