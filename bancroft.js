@@ -79,6 +79,7 @@ var Bancroft =
                   self.location.speed = data.speed;
                   self.location.geometries.coordinates = [ data.lon, data.lat, data.alt ];
                   self.emit('location', self.location);
+                  self.emit('tpv', data);
                 }
 
             } else if (data.class === 'SKY' && data.satellites != undefined) {
