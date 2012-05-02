@@ -62,6 +62,12 @@ var Bancroft =
                 });
                 continue;
               }
+
+              // emit the raw data so clients can use the raw events
+              self.emit(data.class, data);
+              
+              // do something smart to provide simplified event to the clients.
+
               if (data.class === 'VERSION') {
                 self.emit('connect', {
                   'release' : data.release,
@@ -79,7 +85,6 @@ var Bancroft =
                   self.location.speed = data.speed;
                   self.location.geometries.coordinates = [ data.lon, data.lat, data.alt ];
                   self.emit('location', self.location);
-                  self.emit('tpv', data);
                 }
 
             } else if (data.class === 'SKY' && data.satellites != undefined) {
