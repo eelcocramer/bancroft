@@ -1,10 +1,13 @@
 "bancroft":http://en.wikipedia.org/wiki/Global_Positioning_System#Bancroft.27s_method is a "node":http://nodejs.org client for the "gps daemon":http://gpsd.berlios.de providing configurable async location tracking featuring "geojson":http://geojson.org/ geometries _Point_ format.
+"gpsdjson":http://www.catb.org/gpsd/gpsd_json.html gpsd request/response protocol
 
 h2. How it works
 
 Upon object creation ( _new Bancroft()_ ), bancroft connects to a running GPS daemon and send _?WATCH_ and _?POLL_ messages to receive messages (json type) back from the daemon, hence, from the GPS device itself. Upon connection, a _connection_ event is emitted along with daemon version and release details object. A _disconnect_ event is emitted once the daemon is found off grid.
 
 At any time, bancroft keeps track of the current location along with information about current satellite status. A _location_ event is emitted once a new location has been tracked, that is, whenever the latitude, longitude or altitude received from the device differs from the currently stored information. A _satellite_ event is emitted whenever a given satellite (PRN) changes status.
+
+Next to this, bancroft also emits all the gpsd json core-protocol responses as events: _TPV_, _SKY_, _GST_ & _ATT_. More information about these events can be found in the "documentation":http://www.catb.org/gpsd/gpsd_json.html.
 
 h3. Location Structure
 
@@ -52,6 +55,9 @@ h2. Features
 * Automatic gpsd spawning with device hot-swapping
 
 h2. ChangeLog
+
+h3. 0.0.8
+* Enabled the emitting of RAW GPSd events 
 
 h3. 0.0.7
 * Port event emitting to v0.6 (eelcocramer)
